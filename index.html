@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	  <meta charset="utf-8">
+	  <title>CAFFE ORDER</title>
+	  <meta http-equiv="X-UA-Compatibile" content="IE=edge,chrome=1"/>
+	  <meta name="viewport" content="width=device-width" content="initial-scale=1">
+	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+	  <link rel="stylesheet" href="style.css" type="text/css"/>
+	  
+
+	  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+
+      let caffe = [
+        {
+          name: 'Caffe espesso',
+          prize: '1',
+        },
+         {
+          name: 'Caffe macchiatto',
+          prize: '1.3',
+        },
+         {
+          name: 'Caffe americano',
+          prize: '1.25',
+        },
+         {
+          name: 'Caffe late',
+          prize: '0.75',
+        },
+      ];
+      let drinks = [
+        {
+          name: 'Campari',
+          prize: '5',
+        },
+         {
+          name: 'Mojito',
+          prize: '4.75',
+        },
+         {
+          name: 'Pina Colada',
+          prize: '5.3',
+        },
+         {
+          name: 'Cuba Libre',
+          prize: '4.50',
+        },
+          {
+          name: 'Tequila Sunrise',
+          prize: '6.50',
+        },
+      ];
+      let cake = [
+        {
+          name: 'Panettone',
+          prize: '5',
+        },
+         {
+          name: 'Tiramisu',
+          prize: '4.75',
+        },
+         {
+          name: 'Dolce alla Napoletana',
+          prize: '5.3',
+        },
+         {
+          name: 'Schiacciata',
+          prize: '4.50',
+        },
+      ];
+      let food = [
+         {
+          name: 'Lasagna',
+          prize: '7',
+        },
+         {
+          name: 'Carbonara',
+          prize: '8',
+        },
+         {
+          name: 'Panini',
+          prize: '4.3',
+        },
+         {
+          name: 'Ribollita',
+          prize: '4.50',
+        },
+      ];
+      let totalPrize = 0;
+      let ilosc = 1;
+      function mixProducts(a){
+         for (var i = a.length - 1; i >= 0; i--) {
+           $("#products").append( "<li>" +  a[i].name + " " + "<button class='down'>-</button>" + " " + ilosc + "<button class='up'>+</button>" + " " + a[i].prize  +"zł"+ "<button class='add' value='"+a[i].prize + "'>dodaj</button></li>"); 
+          let prize = a[i].prize;
+         };
+           $(".add").click(function(event){
+            let productValue = Number(event.target.value);
+          totalPrize = totalPrize + productValue;
+          $("#footer").html("<h3>Suma: " + totalPrize + "</h3>");
+          });
+      }
+    $(document).ready(function(){
+      $(".product_list").hide();
+      $(".orders_color1").click(function(){
+        $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").hide();
+        $(".product_list").show();
+        $(".product_list").addClass("orders_color1");
+        $(".product_list").addClass("orders_color1");
+        $("#products_img").attr('src','images/coffe.png');
+       mixProducts(caffe);
+     });
+       $(".orders_color2").click(function(){
+          $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").hide();
+          $(".product_list").show();
+          $(".product_list").addClass("orders_color2");
+          $("#products_img").attr('src','images/cake.png');
+          mixProducts(cake);
+     });
+      $(".orders_color3").click(function(){
+        $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").hide();
+        $(".product_list").show();
+        $(".product_list").addClass("orders_color3");
+        $("#products_img").attr('src','images/drinks.png');
+        mixProducts(drinks);
+     });
+      $(".orders_color4").click(function(){
+        $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").hide();
+        $(".product_list").addClass("orders_color4");
+        $(".product_list").show();
+        $("#products_img").attr('src','images/food.png'); 
+         mixProducts(food) ;
+     });
+
+     $('#backTo').click(function(){
+        $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").show();
+        $(".product_list").hide();
+        $(".product_list").removeClass("orders_color1 orders_color2 orders_color3 orders_color4");
+        $("#products").html(" ");
+     });
+    });
+    </script>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col no-padding">
+				<header id="header">
+					<h1>coffe oder</h1>
+				</header>
+			</div>	
+		</div>
+	</div>
+		
+    <div class="container">
+      <div class="row">
+        <div class="product_list">
+         <img id="products_img" src="images/coffe.png">
+          <button id="backTo"><img src="images/back.png"></button><br>
+          <ul id="products">
+          </ul>
+        </div>
+      </div>
+    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col no-padding orders orders_color1">
+				<img src="images/coffe.png">
+				<h2>coffe</h2>
+			</div>
+			<div class="col no-padding orders orders_color2">
+				<img src="images/cake.png">
+				<h2>cake</h2>
+			</div>	
+		</div>
+	</div>	
+	<div class="container">
+		<div class="row">
+			<div class="col no-padding orders orders_color3">
+				<img src="images/drinks.png">
+				<h2>drinks</h2>
+			</div>
+			<div class="col no-padding orders orders_color4">
+				<img src="images/food.png">
+				<h2>food</h2>
+			</div>	
+		</div>
+	</div>
+  <div class="container">
+    <div class="row">
+      <div class="col no-padding">
+        <footer id="footer">
+          <h3>suma:</h3>
+          <section id="bill">bill</section>
+        </footer>
+      </div>
+    </div>
+    
+  </div>	
+</body>
+</html>
