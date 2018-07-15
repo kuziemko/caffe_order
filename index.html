@@ -95,17 +95,19 @@
       let ilosc = 1;
       function mixProducts(a){
          for (var i = a.length - 1; i >= 0; i--) {
-           $("#products").append( "<li>" +  a[i].name + " " + "<button class='down'>-</button>" + " " + ilosc + "<button class='up'>+</button>" + " " + a[i].prize  +"zł"+ "<button class='add' value='"+a[i].prize + "'>dodaj</button></li>"); 
+           $("#products").append( "<li>" +  a[i].name + " " + "<span><button class='down'>-</button>" + " " + ilosc + "<button class='up'>+</button></span>" + " " + a[i].prize  +"zł"+ "<button class='add' value='"+a[i].prize + "'>dodaj</button></li>"); 
           let prize = a[i].prize;
          };
            $(".add").click(function(event){
             let productValue = Number(event.target.value);
           totalPrize = totalPrize + productValue;
-          $("#footer").html("<h3>Suma: " + totalPrize + "</h3>");
+          $("#footer h3").html("<h3>Suma: " + totalPrize + "</h3>");
+           $("#bill").show();
           });
       }
     $(document).ready(function(){
       $(".product_list").hide();
+      $("#bill").hide();
       $(".orders_color1").click(function(){
         $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").hide();
         $(".product_list").show();
@@ -135,12 +137,15 @@
         $("#products_img").attr('src','images/food.png'); 
          mixProducts(food) ;
      });
-
      $('#backTo').click(function(){
         $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").show();
         $(".product_list").hide();
         $(".product_list").removeClass("orders_color1 orders_color2 orders_color3 orders_color4");
         $("#products").html(" ");
+     });
+     $("#clear").click(function(){
+     totalPrize = 0;
+      $("#footer h3").html("<h3>Suma: " + totalPrize + "</h3>");
      });
     });
     </script>
@@ -193,6 +198,7 @@
     <div class="row">
       <div class="col no-padding">
         <footer id="footer">
+          <button id="clear">clear</button>
           <h3>suma:</h3>
           <section id="bill">bill</section>
         </footer>

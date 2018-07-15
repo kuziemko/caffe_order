@@ -42,7 +42,6 @@ header h1{
 }
 .orders_color3{
 	background-color: #ffcc00;
-	padding-top: 15px;
 }
 .orders_color4{
 	background-color: #0000ff;
@@ -116,4 +115,17 @@ footer{
 	position: absolute;
 	right: 10px;
 	text-transform: initial;
+}
+#clear{
+	color: white;
+	width: 40px;
+	background: none;
+	border: 1px dashed white;
+	cursor: pointer;
+	font-size: 0.3em;
+	position: absolute;
+	left: 10px;
+}
+#clear:hover{
+	color: red;
 }
