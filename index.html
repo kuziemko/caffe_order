@@ -93,21 +93,37 @@
       ];
       let totalPrize = 0;
       let ilosc = 1;
+      function liContent(a){
+        $('#products li').click(function() {
+        let brum =($(this).children("span").text());
+        $(".bill_body").append("<li>" + brum + " " + a + "<button class='delete'>delete</button>" + "   " + "</li>" );
+        $(".delete").click(function(){
+          $(this).parent().hide();
+     }); 
+  });
+      };
+    
       function mixProducts(a){
          for (var i = a.length - 1; i >= 0; i--) {
-           $("#products").append( "<li>" +  a[i].name + " " + "<span><button class='down'>-</button>" + " " + ilosc + "<button class='up'>+</button></span>" + " " + a[i].prize  +"zł"+ "<button class='add' value='"+a[i].prize + "'>dodaj</button></li>"); 
+           $("#products").append( "<li><span>" +  a[i].name +"</span>" + " " + "<button class='down'>-</button>" + " " + ilosc + "<button class='up'>+</button>" + " " + a[i].prize  +"zł"+ "<button class='add' value='"+a[i].prize + "'>dodaj</button></li>"); 
           let prize = a[i].prize;
          };
            $(".add").click(function(event){
             let productValue = Number(event.target.value);
           totalPrize = totalPrize + productValue;
           $("#footer h3").html("<h3>Suma: " + totalPrize + "</h3>");
-           $("#bill").show();
+          $("#bill").show();
+          liContent(productValue);
           });
-      }
+      };
     $(document).ready(function(){
       $(".product_list").hide();
       $("#bill").hide();
+      $(".bill_body").hide();
+      $("#bill").click(function(){
+         $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").hide();
+         $(".bill_body").show();
+      });
       $(".orders_color1").click(function(){
         $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").hide();
         $(".product_list").show();
@@ -137,16 +153,18 @@
         $("#products_img").attr('src','images/food.png'); 
          mixProducts(food) ;
      });
-     $('#backTo').click(function(){
+     $('.backTo').click(function(){
         $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").show();
-        $(".product_list").hide();
+        $(".product_list, .bill_body").hide();
         $(".product_list").removeClass("orders_color1 orders_color2 orders_color3 orders_color4");
         $("#products").html(" ");
      });
      $("#clear").click(function(){
      totalPrize = 0;
       $("#footer h3").html("<h3>Suma: " + totalPrize + "</h3>");
+      $("#bill").hide();
      });
+     
     });
     </script>
 <body>
@@ -164,8 +182,17 @@
       <div class="row">
         <div class="product_list">
          <img id="products_img" src="images/coffe.png">
-          <button id="backTo"><img src="images/back.png"></button><br>
+          <button class="backTo"><img src="images/back.png"></button><br>
           <ul id="products">
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col no-padding orders bill_body">
+          <button class="backTo"><img src="images/back.png"></button><br>
+          <ul>
           </ul>
         </div>
       </div>
