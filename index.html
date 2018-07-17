@@ -95,13 +95,9 @@
       let ilosc = 1;
       function liContent(a){
         $('#products li').click(function() {
-        let brum =($(this).children("span").text());
-        $(".bill_body").append("<li>" + brum + " " + a + "<button class='delete'>delete</button>" + "   " + "</li>" );
-        $(".delete").click(function(){
-          $(this).parent().hide();
-     }); 
-  });
-      };
+          
+        });
+     };
     
       function mixProducts(a){
          for (var i = a.length - 1; i >= 0; i--) {
@@ -113,9 +109,17 @@
           totalPrize = totalPrize + productValue;
           $("#footer h3").html("<h3>Suma: " + totalPrize + "</h3>");
           $("#bill").show();
-          liContent(productValue);
+          let brum =($(this).parent().children("span").text());
+          $(".bill_body").append("<li>" + brum + " " + productValue + "<button class='delete' value='productValue'>delete</button>" + "   " + "</li>" );
+          $(".delete").click(function(){
+           $(this).parent().hide();
+           let trythis = Number(event.target.value);
+           $("#footer h3").html("<h3>Suma: " + ksy + "</h3>");
           });
+          });
+
       };
+
     $(document).ready(function(){
       $(".product_list").hide();
       $("#bill").hide();
@@ -164,7 +168,7 @@
       $("#footer h3").html("<h3>Suma: " + totalPrize + "</h3>");
       $("#bill").hide();
      });
-     
+      
     });
     </script>
 <body>
