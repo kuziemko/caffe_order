@@ -93,40 +93,45 @@
       ];
       let totalPrize = 0;
       let ilosc = 1;
-      function liContent(a){
-        $('#products li').click(function() {
-          
-        });
-     };
-    
+     let prizetable = [];
+    let livalue = 0;
+    let x = 0;
+  
+     
+   
+    function addPrize(a){
+      $(".add").click(function(event){
+            let productValue = Number(event.target.value);
+            prizetable.push(productValue);
+          totalPrize = totalPrize + productValue;
+          $("#footer h3").html("<h3>Suma: " + totalPrize + "</h3>");
+          $("#bill").show();
+          let brum =($(this).parent().children("span").text());
+         $(".bill_body").append("<li>" + brum + " " + productValue + "<button class='delete' value='" +livalue++ + "'>delete</button>" + "   " + "</li>" );  
+          });       
+    };
       function mixProducts(a){
          for (var i = a.length - 1; i >= 0; i--) {
            $("#products").append( "<li><span>" +  a[i].name +"</span>" + " " + "<button class='down'>-</button>" + " " + ilosc + "<button class='up'>+</button>" + " " + a[i].prize  +"zł"+ "<button class='add' value='"+a[i].prize + "'>dodaj</button></li>"); 
           let prize = a[i].prize;
          };
-           $(".add").click(function(event){
-            let productValue = Number(event.target.value);
-          totalPrize = totalPrize + productValue;
-          $("#footer h3").html("<h3>Suma: " + totalPrize + "</h3>");
-          $("#bill").show();
-          let brum =($(this).parent().children("span").text());
-          $(".bill_body").append("<li>" + brum + " " + productValue + "<button class='delete' value='productValue'>delete</button>" + "   " + "</li>" );
-          $(".delete").click(function(){
-           $(this).parent().hide();
-           let trythis = Number(event.target.value);
-           $("#footer h3").html("<h3>Suma: " + ksy + "</h3>");
-          });
-          });
-
       };
 
     $(document).ready(function(){
+
       $(".product_list").hide();
       $("#bill").hide();
       $(".bill_body").hide();
       $("#bill").click(function(){
          $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").hide();
          $(".bill_body").show();
+          $(".bill_body button").click(function(event){
+            x = event.target.value;
+            totalPrize = totalPrize - prizetable[x];
+            $("#footer h3").html("<h3>Suma: " + totalPrize + "</h3>");
+            $(this).parent().hide();
+            $(this).remove(); 
+          });
       });
       $(".orders_color1").click(function(){
         $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").hide();
@@ -134,7 +139,8 @@
         $(".product_list").addClass("orders_color1");
         $(".product_list").addClass("orders_color1");
         $("#products_img").attr('src','images/coffe.png');
-       mixProducts(caffe);
+        mixProducts(caffe);
+        addPrize(caffe);
      });
        $(".orders_color2").click(function(){
           $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").hide();
@@ -142,6 +148,7 @@
           $(".product_list").addClass("orders_color2");
           $("#products_img").attr('src','images/cake.png');
           mixProducts(cake);
+          addPrize(cake);
      });
       $(".orders_color3").click(function(){
         $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").hide();
@@ -149,6 +156,7 @@
         $(".product_list").addClass("orders_color3");
         $("#products_img").attr('src','images/drinks.png');
         mixProducts(drinks);
+         addPrize(drinks);
      });
       $(".orders_color4").click(function(){
         $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").hide();
@@ -156,19 +164,22 @@
         $(".product_list").show();
         $("#products_img").attr('src','images/food.png'); 
          mixProducts(food) ;
+         addPrize(food);
      });
      $('.backTo').click(function(){
         $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").show();
         $(".product_list, .bill_body").hide();
         $(".product_list").removeClass("orders_color1 orders_color2 orders_color3 orders_color4");
         $("#products").html(" ");
+         if($(".bill_body button").length == 1){
+            $("#bill").hide();
+         };
      });
      $("#clear").click(function(){
-     totalPrize = 0;
+      totalPrize = 0;
       $("#footer h3").html("<h3>Suma: " + totalPrize + "</h3>");
       $("#bill").hide();
      });
-      
     });
     </script>
 <body>

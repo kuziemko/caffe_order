@@ -67,6 +67,7 @@ footer{
 	text-align: center;
 	font-size: 2em;
 	width: 100%;
+	overflow-y: scroll;
 }
 .product_list button{
 	background: none;
