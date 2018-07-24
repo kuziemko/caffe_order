@@ -93,8 +93,8 @@
       ];
       let totalPrize = 0;
       let ilosc = 1;
-     let prizetable = [];
-    let livalue = 0;
+      let prizetable = [];
+      let livalue = 0;
     let x = 0;
   
      
@@ -125,7 +125,7 @@
       $("#bill").click(function(){
          $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").hide();
          $(".bill_body").show();
-          $(".bill_body button").click(function(event){
+          $(".delete").click(function(event){
             x = event.target.value;
             totalPrize = totalPrize - prizetable[x];
             $("#footer h3").html("<h3>Suma: " + totalPrize + "</h3>");
