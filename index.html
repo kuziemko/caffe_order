@@ -92,13 +92,11 @@
         },
       ];
       let totalPrize = 0;
-      let ilosc = 1;
       let prizetable = [];
       let livalue = 0;
-    let x = 0;
-  
-     
    
+      
+
     function addPrize(a){
       $(".add").click(function(event){
             let productValue = Number(event.target.value);
@@ -107,14 +105,21 @@
           $("#footer h3").html("<h3>Suma: " + totalPrize + "</h3>");
           $("#bill").show();
           let brum =($(this).parent().children("span").text());
-         $(".bill_body").append("<li>" + brum + " " + productValue + "<button class='delete' value='" +livalue++ + "'>delete</button>" + "   " + "</li>" );  
-          });       
+         $(".bill_body ul").append("<li>" + brum + " " + productValue + "<button class='delete' onclick='deletePrize(" + productValue + ", event);'>delete</button>" + "   " + "</li>" );  
+          });     
     };
       function mixProducts(a){
          for (var i = a.length - 1; i >= 0; i--) {
-           $("#products").append( "<li><span>" +  a[i].name +"</span>" + " " + "<button class='down'>-</button>" + " " + ilosc + "<button class='up'>+</button>" + " " + a[i].prize  +"zł"+ "<button class='add' value='"+a[i].prize + "'>dodaj</button></li>"); 
+           $("#products").append( "<li><span>" +  a[i].name +"</span>" + " " + a[i].prize  +"zł"+ "<button class='add' value='"+a[i].prize + "'>dodaj</button></li>"); 
           let prize = a[i].prize;
          };
+      };
+      function deletePrize(x, event){
+            totalPrize = totalPrize - x;
+            $("#footer h3").html("<h3>Suma: " + totalPrize + "</h3>");
+            event.target.parentNode.remove();
+           
+            
       };
 
     $(document).ready(function(){
@@ -125,14 +130,9 @@
       $("#bill").click(function(){
          $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").hide();
          $(".bill_body").show();
-          $(".delete").click(function(event){
-            x = event.target.value;
-            totalPrize = totalPrize - prizetable[x];
-            $("#footer h3").html("<h3>Suma: " + totalPrize + "</h3>");
-            $(this).parent().hide();
-            $(this).remove(); 
-          });
       });
+      
+      
       $(".orders_color1").click(function(){
         $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").hide();
         $(".product_list").show();
@@ -172,9 +172,11 @@
         $(".product_list").removeClass("orders_color1 orders_color2 orders_color3 orders_color4");
         $("#products").html(" ");
          if($(".bill_body button").length == 1){
-            $("#bill").hide();
+            $("#bill").hide(); 
          };
+         
      });
+
      $("#clear").click(function(){
       totalPrize = 0;
       $("#footer h3").html("<h3>Suma: " + totalPrize + "</h3>");
