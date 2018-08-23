@@ -156,6 +156,14 @@ footer{
 .delete:hover{
 	color: blue;
 }
+.bill_body ul{
+	max-width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid white;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
 @media only screen and (max-width: 800px){
 
 header h1{
