@@ -117,22 +117,32 @@
       function deletePrize(x, event){
             totalPrize = totalPrize - x;
             $("#footer h3").html("<h3>Suma: " + totalPrize + "</h3>");
-            event.target.parentNode.remove();
-           
-            
+            event.target.parentNode.remove();    
       };
+     var ourRequest = new XMLHttpRequest();
+     ourRequest.open('GET', 'https://api.myjson.com/bins/13q6ag');
+     ourRequest.onload = function(){
+      var ourData = JSON.parse(ourRequest.responseText);
+      renderHtml(ourData);
+     };
+     ourRequest.send();
+
+     function renderHtml(data){
+          for(m=0;  m<data.length; m++){
+             document.getElementById("trythis").innerHTML ="<section class='ready_order'>" + data[m].id + "</section>";
+            }
+      }
 
     $(document).ready(function(){
 
       $(".product_list").hide();
       $("#bill").hide();
-      $(".bill_body").hide();
+     
       $("#bill").click(function(){
          $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").hide();
          $(".bill_body").show();
       });
-      
-      
+
       $(".orders_color1").click(function(){
         $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").hide();
         $(".product_list").show();
@@ -173,8 +183,7 @@
         $("#products").html(" ");
          if($(".bill_body button").length == 1){
             $("#bill").hide(); 
-         };
-         
+         };  
      });
 
      $("#clear").click(function(){
@@ -210,8 +219,9 @@
       <div class="row">
         <div class="col no-padding orders bill_body">
           <button class="backTo"><img src="images/back.png"></button><br>
-          <ul>
+          <ul >
           </ul>
+          <aside id="trythis"></aside>
         </div>
       </div>
     </div>
