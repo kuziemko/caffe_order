@@ -9,7 +9,7 @@
 	  <link rel="stylesheet" href="style.css" type="text/css"/>
 	  
 
-	  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.js"></script>
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
@@ -105,7 +105,7 @@
           $("#footer h3").html("<h3>Suma: " + totalPrize + "</h3>");
           $("#bill").show();
           let brum =($(this).parent().children("span").text());
-         $(".bill_body ul").append("<li>" + brum + " " + productValue + "<button class='delete' onclick='deletePrize(" + productValue + ", event);'>delete</button>" + "   " + "</li>" );  
+         $(".bill_body ul").append("<li>" + brum + " <span>" + productValue + "</span><button class='delete' onclick='deletePrize(" + productValue + ", event);'>delete</button>" + "   " + "</li>" );  
           });     
     };
       function mixProducts(a){
@@ -120,24 +120,30 @@
             event.target.parentNode.remove();    
       };
      var ourRequest = new XMLHttpRequest();
-     ourRequest.open('GET', 'https://api.myjson.com/bins/13q6ag');
+     ourRequest.open('GET', 'https://api.mlab.com/api/1/databases/coforder/collections/orders?apiKey=gW8Jcivt8k_ef-xIX7Nx-PAITczEPXIq');
      ourRequest.onload = function(){
       var ourData = JSON.parse(ourRequest.responseText);
-      renderHtml(ourData);
+     console.log(ourData[0].order[1]);
+     for(i=0; i<ourData[0].order.length; i++){
+      var createElem = document.createElement("li");
+      createElem.className = "ready_order";
+      var textnode = document.createTextNode(ourData[0].order[i]);         
+      createElem.appendChild(textnode);                              
+      document.getElementById("ready_orders").appendChild(createElem);
+     }
      };
      ourRequest.send();
-
-     function renderHtml(data){
-          for(m=0;  m<data.length; m++){
-             document.getElementById("trythis").innerHTML ="<section class='ready_order'>" + data[m].id + "</section>";
-            }
-      }
-
     $(document).ready(function(){
 
       $(".product_list").hide();
       $("#bill").hide();
-     
+      $(".bill_body").hide();
+      $("#ready_orders").hide();
+
+      $('#showReadyOrders').click(function(){
+        $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").hide();
+        $("#ready_orders").show();
+      });
       $("#bill").click(function(){
          $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").hide();
          $(".bill_body").show();
@@ -185,12 +191,19 @@
             $("#bill").hide(); 
          };  
      });
-
      $("#clear").click(function(){
       totalPrize = 0;
       $("#footer h3").html("<h3>Suma: " + totalPrize + "</h3>");
       $("#bill").hide();
       $(".bill_body ul").html("");
+     });
+     $("#sendOrder").on("click",function(e){
+
+           e.preventDefault();
+       $.ajax( { url: "https://api.mlab.com/api/1/databases/my-db/collections/my-coll?apiKey=myAPIKey", 
+      data: JSON.stringify({"lat": 41.23, "long": 2.23, "time": {"$date": new Date().toISOString()}}), 
+      type: "POST", 
+      contentType: "application/json"} );;
      });
     });
     </script>
@@ -219,9 +232,9 @@
       <div class="row">
         <div class="col no-padding orders bill_body">
           <button class="backTo"><img src="images/back.png"></button><br>
-          <ul >
+          <ul id="jakasul">
           </ul>
-          <aside id="trythis"></aside>
+          <button id="sendOrder">ready</button>
         </div>
       </div>
     </div>
@@ -250,16 +263,22 @@
 		</div>
 	</div>
   <div class="container">
+  <div class="row">
+      <div class=" no-padding" id="ready_orders">
+      </div>
+    </div>
+  </div> 
+   
+  <div class="container">
     <div class="row">
       <div class="col no-padding">
         <footer id="footer">
           <button id="clear">clear</button>
+          <button id="showReadyOrders">RO</button>
           <h3>suma:</h3>
           <section id="bill">bill</section>
         </footer>
       </div>
     </div>
-    
-  </div>	
 </body>
 </html>
