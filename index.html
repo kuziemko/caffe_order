@@ -184,7 +184,7 @@
      });
      $('.backTo').click(function(){
         $(".orders_color1, .orders_color2, .orders_color3, .orders_color4").show();
-        $(".product_list, .bill_body").hide();
+        $(".product_list, .bill_body, #ready_orders").hide();
         $(".product_list").removeClass("orders_color1 orders_color2 orders_color3 orders_color4");
         $("#products").html(" ");
          if($(".bill_body button").length == 1){
@@ -265,6 +265,7 @@
   <div class="container">
   <div class="row">
       <div class=" no-padding" id="ready_orders">
+        <button class="backTo"><img src="images/back.png"></button><br>
       </div>
     </div>
   </div> 
